@@ -452,12 +452,14 @@ const QBANK_FILES=[
   'ch0_life_factors','ch1_life_cycle','ch2_materials',
   'ch3_force','ch4_sun','ch5_air','ch6_solar'
 ];
+// ดึงจาก branch "data" โดยตรง (แก้ปัญหา branch แยก)
+const DATA_BASE='https://raw.githubusercontent.com/ppeeradet/ScienceInOnePiece/data/';
 const QBANKS=new Array(7).fill(null); // null = ยังไม่ได้โหลด
 
 async function loadQBank(ci){
   if(QBANKS[ci]) return; // โหลดแล้ว ไม่ต้องโหลดซ้ำ
   try{
-    const res=await fetch(`data/${QBANK_FILES[ci]}.json`);
+    const res=await fetch(`${DATA_BASE}${QBANK_FILES[ci]}.json`);
     if(!res.ok) throw new Error('HTTP '+res.status);
     const data=await res.json();
     QBANKS[ci]=data.questions;
